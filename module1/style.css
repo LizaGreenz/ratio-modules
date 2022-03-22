@@ -1,0 +1,225 @@
+[hidden] {
+  display: none;
+}
+:root {
+  --purple: #9c69e2;
+  --dark-blue: #212353;
+  --gray: #4b5d68;
+  --pink: #f063b8;
+  --turquoise: #68c9ba;
+  --margin: 0 2.4rem 0 2.4rem;
+  font-size: 62.5%;
+  font-family: "Ubuntu";
+}
+html {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+/* .container, */
+.sections-container {
+  max-width: 1119px;
+  margin: 0 auto;
+}
+
+/* .header-container {
+  display: flex;
+  align-items: center;
+  height: 170px;
+} */
+
+/* FIXME change padding to margin */
+
+@media (max-width: 640px) {
+  .header-container {
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .header-container {
+    max-height: 100px;
+  }
+
+  .logo-container {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.menu-list {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+
+.menu-link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: var(--gray);
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  transition: color 0.3s ease 0s;
+}
+
+.menu-link.about {
+  font-weight: 800;
+  color: var(--dark-blue);
+  margin-left: 7.5rem;
+}
+
+@media (min-width: 992px) {
+  .menu-link:hover {
+    color: var(--pink);
+  }
+  .hide_small {
+    display: none;
+  }
+  .show_small {
+    position: relative;
+    left: 0;
+    display: block;
+    width: 100%;
+  }
+  .show_small > img {
+    width: 100%;
+  }
+}
+@media (max-width: 640px) {
+  .menu-link.about {
+    margin-left: 2.5rem;
+  }
+}
+
+.sections-container-inner {
+  display: flex;
+}
+
+.about-text {
+  /* display: flex;
+  flex-direction: column; */
+  /* flex-basis: 645px; */
+  z-index: 1;
+  width: 60%;
+}
+.show_small {
+  display: none;
+}
+
+/* FIXME the image moving on changing sizes */
+
+.about-img {
+  position: relative;
+  max-width: 100%;
+  /* margin-top: 5rem; */
+  /* background-image: url(img/image1.png); */
+  /* width: 100%; */
+  /* background-position: 100%; */
+  /* background-repeat: no-repeat; */
+  /* position: absolute; */
+  /* max-width: 885px; */
+  /* left: 86.5rem;
+  top: 32.2rem; */
+  /* right: 0; */
+  /* bottom: 0; */
+}
+.about-img > img {
+  content: " ";
+  position: absolute;
+  top: 50px;
+  right: -200px;
+}
+
+h1 {
+  font-size: 8rem;
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin: 5.6rem 0 0 0;
+}
+
+p {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--gray);
+}
+
+.about-paragraph {
+  margin: 5rem 0 5rem 0;
+  max-width: 380px;
+}
+
+/* FIXME the button text */
+
+.learn-more-button {
+  background-color: var(--purple);
+  height: 60px;
+  width: 170px;
+  border-radius: 50px;
+  font-family: "Ubuntu";
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 160%;
+  text-align: center;
+  border: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* TODO Check why the text and the image runs out of the container */
+
+.about2-background {
+  background: rgba(240, 99, 184, 0.15);
+  border-radius: 50px;
+  /* max-height: 580px; */
+  margin-top: 19.3rem;
+}
+
+h2 {
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+.features-h2 {
+  margin-bottom: 4.7rem;
+  margin-top: 16.1rem;
+}
+
+.about-text2 {
+  margin: 12.5rem 9.2rem 12.5rem 6.5rem;
+  max-height: 475px;
+}
+@media screen and (max-width: 1000px) {
+  .sections-container-inner {
+    height: 100%;
+    flex-direction: column;
+  }
+}
+.about2-paragraph {
+  margin-top: 4rem;
+}
+
+.features-info {
+  text-align: center;
+  max-width: 584px;
+  margin-left: 26.7rem;
+  margin-right: 27.2rem;
+  margin-bottom: 10.9rem;
+}
+
+.feature1 {
+  background-image: url(img/greensquare.png);
+  background-repeat: no-repeat;
+  max-width: 531px;
+}
+
+.feature-text1 {
+  display: flex;
+  flex-direction: column;
+}
