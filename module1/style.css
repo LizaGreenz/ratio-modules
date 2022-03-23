@@ -1,6 +1,4 @@
-[hidden] {
-  display: none;
-}
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,700,700italic);
 :root {
   --purple: #9c69e2;
   --dark-blue: #212353;
@@ -26,11 +24,11 @@ html {
   margin: 0 auto;
 }
 
-/* .header-container {
+.header-container {
   display: flex;
   align-items: center;
   height: 170px;
-} */
+}
 
 /* FIXME change padding to margin */
 
@@ -70,42 +68,45 @@ html {
 .menu-link.about {
   font-weight: 800;
   color: var(--dark-blue);
-  margin-left: 7.5rem;
+  margin-left: 12.2rem;
 }
 
 @media (min-width: 992px) {
   .menu-link:hover {
     color: var(--pink);
   }
-  .hide_small {
-    display: none;
-  }
-  .show_small {
-    position: relative;
-    left: 0;
-    display: block;
-    width: 100%;
-  }
-  .show_small > img {
-    width: 100%;
-  }
 }
+
 @media (max-width: 640px) {
   .menu-link.about {
     margin-left: 2.5rem;
   }
 }
 
-.sections-container-inner {
-  display: flex;
+.container-grid {
+  display: grid;
+  grid-template-columns: 380px 160px 1020px;
+  grid-template-rows: 140px 480px;
 }
 
+.about-grid-item1 {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+}
+
+.about-grid-item2 {
+  grid-column: 2 / 4;
+  grid-row: 2;
+}
+
+.hero-img {
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
 .about-text {
-  /* display: flex;
-  flex-direction: column; */
-  /* flex-basis: 645px; */
-  z-index: 1;
-  width: 60%;
+  width: 645px;
+  height: 464px;
 }
 .show_small {
   display: none;
@@ -113,26 +114,12 @@ html {
 
 /* FIXME the image moving on changing sizes */
 
-.about-img {
-  position: relative;
+.hero-img {
+  top: 0;
+  right: 0;
   max-width: 100%;
-  /* margin-top: 5rem; */
-  /* background-image: url(img/image1.png); */
-  /* width: 100%; */
-  /* background-position: 100%; */
-  /* background-repeat: no-repeat; */
-  /* position: absolute; */
-  /* max-width: 885px; */
-  /* left: 86.5rem;
-  top: 32.2rem; */
-  /* right: 0; */
-  /* bottom: 0; */
-}
-.about-img > img {
-  content: " ";
-  position: absolute;
-  top: 50px;
-  right: -200px;
+  width: 75%;
+  object-fit: scale-down;
 }
 
 h1 {
@@ -149,7 +136,7 @@ p {
 }
 
 .about-paragraph {
-  margin: 5rem 0 5rem 0;
+  margin: 6rem 0 6rem 0;
   max-width: 380px;
 }
 
@@ -170,6 +157,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
 }
 
 /* TODO Check why the text and the image runs out of the container */
@@ -219,6 +207,23 @@ h2 {
   max-width: 531px;
 }
 
+.feature2 {
+  background-image: url(img/purplesquare.png);
+  background-repeat: no-repeat;
+  max-width: 531px;
+}
+
+.feature3 {
+  background-image: url(img/pinksquare.png);
+  background-repeat: no-repeat;
+  max-width: 531px;
+}
+
+.feature4 {
+  background-image: url(img/bluesquare.png);
+  background-repeat: no-repeat;
+  max-width: 531px;
+}
 .feature-text1 {
   display: flex;
   flex-direction: column;
