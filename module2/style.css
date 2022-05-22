@@ -1,0 +1,372 @@
+:root {
+  --color-light-beige: #faf8ef;
+  --color-light-beige-text: #f9f6f2;
+  --color-beige: rgba(238, 228, 218, 0.35);
+  --color-dark-beige: #bbada0;
+  --color-brown-text: #776e65;
+  --color-brown-button: #8f7a66;
+  --color-light-yellow: #f0f069;
+  font-size: 62.5%;
+  font-family: "Clear Sans", sans-serif;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  min-width: 100%;
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--color-light-beige);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+main {
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.info {
+  flex: 1;
+  max-width: 35%;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 8rem;
+  color: var(--color-brown-text);
+  margin: 0 0 1.5rem 0;
+}
+
+.scores-container {
+  display: flex;
+}
+
+.score,
+.best,
+.time-spent {
+  flex: 1;
+  display: inline-block;
+  padding: 2rem 1.5rem;
+  line-height: 0;
+  height: 25px;
+  background-color: var(--color-dark-beige);
+  border-radius: 0.3rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--color-light-beige-text);
+  text-align: center;
+}
+
+.score {
+  margin-right: 1rem;
+}
+
+.time-spent {
+  margin-left: 1rem;
+}
+
+#displayed_score,
+#displayed_best_score,
+#displayed_time_score {
+  margin: 0;
+  line-height: 5rem;
+  color: white;
+  font-size: 2.5rem;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+.new-game {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 2rem;
+}
+
+.restart-button {
+  background-color: var(--color-brown-button);
+  padding: 1rem 2rem;
+  border-radius: 0.3rem;
+  color: var(--color-light-beige-text);
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.extras {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.how-to-play {
+  margin-top: 0;
+}
+
+.game-explanation {
+  display: none;
+}
+
+p {
+  color: var(--color-brown-text);
+  font-size: 1.8rem;
+}
+
+.game-table-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), var(--cell-size));
+  grid-template-rows: repeat(var(--grid-size), var(--cell-size));
+  background-color: #bbada0;
+  gap: var(--cell-gap);
+  padding: var(--cell-gap);
+  border-radius: 6px;
+  height: fit-content;
+  position: relative;
+  width: fit-content;
+}
+
+.cell {
+  border-radius: 3px;
+  background: rgba(238, 228, 218, 0.35);
+}
+
+.tile {
+  --x: 1;
+  --y: 2;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  font-weight: bold;
+  color: var(--color-brown-text);
+  width: 8rem;
+  height: 8rem;
+  top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+  left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+  background: #eee4da;
+  border-radius: 3px;
+  z-index: 2;
+  transition: 100ms ease-in-out;
+  user-select: none;
+}
+
+.tile_animated {
+  animation: spawn 0.3s forwards;
+}
+@keyframes spawn {
+  from {
+    transform: scale(0.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.you-lose-or-win-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(238, 228, 218, 0.73);
+  z-index: 3;
+}
+
+.you-win-text {
+  font-size: 6rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 8rem;
+  margin-bottom: 4rem;
+}
+
+.you-lose-text {
+  font-size: 6rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 14rem;
+  margin-bottom: 4rem;
+}
+
+.you-lose-or-win-window > .restart-button {
+  width: fit-content;
+}
+
+.you-lose-or-win-window > .restart-button:hover {
+  cursor: pointer;
+}
+
+.time-spent-text {
+  margin-top: 0;
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+@media (max-width: 980px) {
+  html,
+  body {
+    height: auto;
+  }
+  main {
+    height: auto;
+  }
+  .container {
+    flex-direction: column;
+    width: 500px;
+    height: auto;
+  }
+  .info {
+    max-width: 100%;
+  }
+  .heading {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .new-game {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+    height: fit-content;
+  }
+  .extras {
+    flex: 0;
+    justify-content: center;
+  }
+  .game-explanation {
+    display: inline-block;
+  }
+  .extras {
+    display: none;
+  }
+  p {
+    font-size: 1.5rem;
+  }
+  .game-table-container {
+    margin-left: 0;
+    margin-top: 4rem;
+    margin-bottom: 10rem;
+  }
+}
+@media (max-width: 550px) {
+  .container {
+    max-width: 320px;
+    width: 100%;
+  }
+  .heading {
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 3rem;
+  }
+  .score,
+  .best,
+  .time-spent {
+    padding: 2rem 1rem;
+    height: 30px;
+  }
+
+  .score {
+    margin-right: 0.5rem;
+    margin-left: 1rem;
+  }
+
+  .time-spent {
+    margin-left: 0.5rem;
+  }
+
+  .restart-button {
+    height: 32px;
+    line-height: 3.5rem;
+    font-size: 1.5rem;
+    padding: 0 0.8rem;
+  }
+
+  #displayed_score,
+  #displayed_best_score,
+  #displayed_time_score {
+    margin: 0.3rem;
+    font-size: 1.5rem;
+  }
+
+  .grid-container {
+    margin-top: 1.5rem;
+    margin-bottom: 6rem;
+    grid-template-columns: repeat(
+      var(--grid-size),
+      calc(var(--cell-size) / 1.7)
+    );
+    grid-template-rows: repeat(var(--grid-size), calc(var(--cell-size) / 1.7));
+    background-color: #bbada0;
+    gap: calc(var(--cell-gap) / 1.7);
+    padding: calc(var(--cell-gap) / 1.7);
+  }
+
+  .tile {
+    font-size: calc(4rem / 1.7);
+    font-weight: bold;
+    color: var(--color-brown-text);
+    width: calc(var(--cell-size) / 1.7);
+    height: calc(var(--cell-size) / 1.7);
+    top: calc(
+      var(--y) * (calc(var(--cell-size) / 1.7) + calc(var(--cell-gap) / 1.7)) +
+        calc(var(--cell-gap) / 1.7)
+    );
+    left: calc(
+      var(--x) * (calc(var(--cell-size) / 1.7) + calc(var(--cell-gap) / 1.7)) +
+        calc(var(--cell-gap) / 1.7)
+    );
+  }
+  .you-lose-text {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 9rem;
+    margin-bottom: 2rem;
+  }
+
+  .you-win-text {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .time-spent-text {
+    margin-top: 0;
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+}

@@ -2,9 +2,63 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>2048</title>
+    <link rel="icon" href="img/favicon.ico" />
+    <link href="style.css" rel="stylesheet" />
+    <script src="Grid.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+    <script src="Tile.js" type="module"></script>
   </head>
-  <body></body>
+  <body>
+    <main>
+      <div class="container">
+        <div class="info">
+          <div class="heading">
+            <h1>2048</h1>
+            <div class="scores-container">
+              <div class="score">
+                <h2>SCORE</h2>
+                <p id="displayed_score">0</p>
+              </div>
+              <div class="best">
+                <h2>BEST</h2>
+                <p id="displayed_best_score">0</p>
+              </div>
+              <div class="time-spent">
+                <h2>TIME</h2>
+                <p id="displayed_time_score">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="new-game">
+            <a class="restart-button">New Game</a>
+            <p class="game-intro">
+              Join the tiles, get to <strong>2048!</strong>
+            </p>
+            <div class="extras">
+              <p class="how-to-play">
+                <strong>HOW TO PLAY:</strong> Use your
+                <strong>arrow keys</strong> to move the tiles. When two tiles
+                with the same number touch, they
+                <strong>merge into one!</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="game-table-container">
+          <div class="grid-container"></div>
+        </div>
+        <div class="game-explanation">
+          <p class="how-to-play">
+            <strong>HOW TO PLAY:</strong> Use your
+            <strong>arrow keys</strong> to move the tiles. When two tiles with
+            the same number touch, they
+            <strong>merge into one!</strong>
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
