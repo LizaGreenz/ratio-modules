@@ -1,3 +1,4 @@
+export { gameStart };
 const GRID_SIZE = 5;
 const CELL_SIZE = 8;
 const CELL_GAP = 1.3;
@@ -7,6 +8,8 @@ const scoreDisplay = document.getElementById("displayed_score");
 const bestScoreDisplay = document.getElementById("displayed_best_score");
 const timeDisplay = document.getElementById("displayed_time_score");
 var score = 0;
+var gameStart = true;
+
 export default class Grid {
   #cells;
 
@@ -97,6 +100,7 @@ class Cell {
     this.#tile.value = this.tile.value + this.mergeTile.value;
     if (this.#tile.value == 2048) {
       youWin();
+      gameStart = false;
     }
     let score = countScore(this.#tile.value);
     if (score > +bestScoreDisplay.innerHTML) {
@@ -143,7 +147,6 @@ function youWin() {
   buttonLose.innerHTML = "New Game";
   buttonLose.classList.add("restart-button");
   gameOver.appendChild(buttonLose);
-
   buttonLose.addEventListener("click", function () {
     window.location.reload();
     scoreDisplay.innerHTML = "0";

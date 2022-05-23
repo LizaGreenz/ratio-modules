@@ -5,7 +5,7 @@ export default class Tile {
   #value;
   query;
 
-  constructor(tileContainer, value = Math.random() > 0.1 ? 2 : 4) {
+  constructor(tileContainer, value = Math.random() > 0.1 ? Math.pow(2, 9) : 4) {
     this.#tileElement = document.createElement("div");
     this.#tileElement.classList.add("tile");
     tileContainer.append(this.#tileElement);
@@ -47,14 +47,53 @@ export default class Tile {
       case Math.pow(2, 7):
         this.#tileElement.style.setProperty("background", "#edcf73");
         this.#tileElement.style.setProperty("color", "#f9f6f2");
+        if (this.query.matches) {
+          this.#tileElement.style.setProperty("font-size", "calc(4rem / 1.7)");
+        } else {
+          this.#tileElement.style.setProperty("font-size", "4rem");
+        }
+        this.query.onchange = (e) => {
+          if (e.matches) {
+            this.#tileElement.style.setProperty(
+              "font-size",
+              "calc(4rem / 1.7)"
+            );
+          }
+        };
         break;
       case Math.pow(2, 8):
         this.#tileElement.style.setProperty("background", "#edcc62");
         this.#tileElement.style.setProperty("color", "#f9f6f2");
+        if (this.query.matches) {
+          this.#tileElement.style.setProperty("font-size", "calc(4rem / 1.7)");
+        } else {
+          this.#tileElement.style.setProperty("font-size", "4rem");
+        }
+        this.query.onchange = (e) => {
+          if (e.matches) {
+            this.#tileElement.style.setProperty(
+              "font-size",
+              "calc(4rem / 1.7)"
+            );
+          }
+        };
         break;
       case Math.pow(2, 9):
         this.#tileElement.style.setProperty("background", "#edc850");
         this.#tileElement.style.setProperty("color", "#f9f6f2");
+        if (this.query.matches) {
+          this.#tileElement.style.setProperty("font-size", "calc(4rem / 1.7)");
+        } else {
+          this.#tileElement.style.setProperty("font-size", "4rem");
+        }
+        this.query.onchange = (e) => {
+          if (e.matches) {
+            this.#tileElement.style.setProperty(
+              "font-size",
+              "calc(4rem / 1.7)"
+            );
+          }
+        };
         break;
       case Math.pow(2, 10):
         this.#tileElement.style.setProperty("background", "#edc53f");
