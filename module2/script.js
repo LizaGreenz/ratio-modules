@@ -83,11 +83,11 @@ async function handleInput(e) {
 
   const newTile = new Tile(gameBoard);
   grid.randomEmptyCell().tile = newTile;
-
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     youLose();
     gameBoard.removeEventListener("pointerdown", handlePointerDown);
-    gameBoard.removeEventListener("keydown", handleInput);
+    window.removeEventListener("keydown", handleInput);
+
     return;
   }
 
@@ -227,8 +227,8 @@ function handlePointerMove(evt) {
 
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     youLose();
-    gameBoard.removeEventListener("pointerdown", handlePointerDown, false);
-    gameBoard.removeEventListener("keydown", handleInput, { once: true });
+    gameBoard.removeEventListener("pointerdown", handlePointerDown);
+    window.removeEventListener("keydown", handleInput);
     return;
   }
 }
