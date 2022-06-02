@@ -3,7 +3,6 @@ import Tile from "./Tile.js";
 import { gameStart } from "./Grid.js";
 
 var seconds = 0;
-var gameLost = false;
 let pDownX = null;
 let pDownY = null;
 
