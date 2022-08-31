@@ -2,6 +2,7 @@ import Grid from "./Grid.js";
 import Tile from "./Tile.js";
 import { gameStart } from "./Grid.js";
 
+var timeScore = 0;
 var seconds = 0;
 let pDownX = null;
 let pDownY = null;
@@ -12,14 +13,51 @@ const scoreDisplay = document.getElementById("displayed_score");
 const bestScoreDisplay = document.getElementById("displayed_best_score");
 const timeDisplay = document.getElementById("displayed_time_score");
 const newGameButton = document.querySelector(".restart-button");
+const container = document.querySelector(".container");
+
+function createModalDialog() {
+  const playerNameModal = document.createElement("dialog");
+  container.append(playerNameModal);
+  playerNameModal.classList.add("player-modal");
+  const playerInputDiv = document.createElement("div");
+  playerInputDiv.classList.add("player-input-container");
+  playerNameModal.appendChild(playerInputDiv);
+  const playerInput = document.createElement("input");
+  playerInput.classList.add("player-input");
+  playerInput.setAttribute("type", "text");
+  playerInput.required;
+  playerInput.action = "/api/v1/record/";
+  playerInput.method = "POST";
+  playerInputDiv.appendChild(playerInput);
+  playerNameModal.show();
+  const submitButton = document.createElement("button");
+  playerInputDiv.appendChild(submitButton);
+  submitButton.classList.add("submit-button");
+  submitButton.innerHTML = "Play!";
+  submitButton.addEventListener("click", function () {
+    fetch("api/v1/record", { method: "POST" })
+      .then(function (response) {
+        if (response.ok) {
+          console.log("Score was recorded");
+          return;
+        }
+        throw new Error("Request failed.");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    playerNameModal.close();
+    timeScore = setInterval(incrementSeconds, 1000);
+    setupInput();
+    setupPointerInput();
+  });
+}
+
+createModalDialog();
 
 const grid = new Grid(gameBoard);
 grid.randomEmptyCell().tile = new Tile(gameBoard);
 grid.randomEmptyCell().tile = new Tile(gameBoard);
-
-setupInput();
-setupPointerInput();
-var timeScore = setInterval(incrementSeconds, 1000);
 
 window.onload = () => {
   if (localStorage.getItem("bestScore") == null) {

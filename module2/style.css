@@ -103,7 +103,7 @@ h2 {
 .restart-button {
   background-color: var(--color-brown-button);
   padding: 1rem 2rem;
-  border-radius: 0.3rem;
+  border-radius: 0.6rem;
   color: var(--color-light-beige-text);
   text-align: center;
   font-weight: bold;
@@ -229,6 +229,53 @@ p {
   margin-top: 0;
   font-size: 5rem;
   font-weight: bold;
+}
+
+.player-modal {
+  position: absolute;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.player-input {
+  height: 5%;
+  width: 30%;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--color-light-beige);
+  font-size: 3rem;
+  font-family: "Clear Sans", sans-serif;
+  color: var(--color-brown-text);
+  margin-right: 2rem;
+}
+
+.player-input:focus {
+  outline: none;
+  border: 5px solid var(--color-dark-beige);
+}
+
+.player-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.submit-button {
+  height: 5%;
+  width: 7%;
+  border: none;
+  background-color: var(--color-brown-button);
+  padding: 1rem 2rem;
+  border-radius: 0.3rem;
+  color: var(--color-light-beige-text);
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.8rem;
+  cursor: pointer;
 }
 
 @media (max-width: 980px) {

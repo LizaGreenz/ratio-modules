@@ -30,7 +30,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/v1/record", scoresRoutes);
+app.use("/", scoresRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
