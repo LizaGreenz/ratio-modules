@@ -1,9 +1,9 @@
-const express = require("express");
+/* const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require("multer");
 
-const Score = require("../models/score");
+const Score = require("../models/score").default;
 
 router.get("/", (req, res, next) => {
   Score.find()
@@ -139,3 +139,4 @@ router.delete("/:scoreId", (req, res, next) => {
 });
 
 module.exports = router;
+ */

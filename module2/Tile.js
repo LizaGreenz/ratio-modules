@@ -5,7 +5,10 @@ export default class Tile {
   #value;
   query;
 
-  constructor(tileContainer, value = Math.random() > 0.1 ? Math.pow(2, 9) : 4) {
+  constructor(
+    tileContainer,
+    value = Math.random() > 0.1 ? Math.pow(2, 10) : Math.pow(2, 7)
+  ) {
     this.#tileElement = document.createElement("div");
     this.#tileElement.classList.add("tile");
     tileContainer.append(this.#tileElement);
@@ -58,6 +61,8 @@ export default class Tile {
               "font-size",
               "calc(4rem / 1.7)"
             );
+          } else {
+            this.#tileElement.style.setProperty("font-size", "4rem");
           }
         };
         break;
@@ -75,9 +80,12 @@ export default class Tile {
               "font-size",
               "calc(4rem / 1.7)"
             );
+          } else {
+            this.#tileElement.style.setProperty("font-size", "4rem");
           }
         };
         break;
+
       case Math.pow(2, 9):
         this.#tileElement.style.setProperty("background", "#edc850");
         this.#tileElement.style.setProperty("color", "#f9f6f2");
@@ -92,6 +100,8 @@ export default class Tile {
               "font-size",
               "calc(4rem / 1.7)"
             );
+          } else {
+            this.#tileElement.style.setProperty("font-size", "4rem");
           }
         };
         break;

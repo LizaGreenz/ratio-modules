@@ -2,12 +2,12 @@ export { gameStart };
 const GRID_SIZE = 5;
 const CELL_SIZE = 8;
 const CELL_GAP = 1.3;
+const container = document.querySelector(".container");
 const gameBoard = document.querySelector(".grid-container");
 const gameTable = document.querySelector(".game-table-container");
 const scoreDisplay = document.getElementById("displayed_score");
 const bestScoreDisplay = document.getElementById("displayed_best_score");
 const timeDisplay = document.getElementById("displayed_time_score");
-var score = 0;
 var gameStart = true;
 
 export default class Grid {
@@ -99,12 +99,28 @@ class Cell {
     if (this.#tile == null || this.mergeTile == null) return;
     this.#tile.value = this.tile.value + this.mergeTile.value;
     if (this.#tile.value == 2048) {
-      youWin();
       gameStart = false;
-    }
-    let score = countScore(this.#tile.value);
-    if (score > +bestScoreDisplay.innerHTML) {
-      bestScoreDisplay.innerHTML = score;
+      fetch("/api/v1/record", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: "Win!",
+        }),
+      })
+        .then(function (response) {
+          if (response.ok) {
+            console.log("Click was recorded");
+            return;
+          }
+          throw new Error("Request failed.");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      youWin();
     }
 
     this.#mergeTile.remove();
@@ -123,13 +139,7 @@ function createCellElements(gridElement) {
   return cells;
 }
 
-function countScore(num) {
-  score += num;
-  scoreDisplay.innerHTML = score;
-  return score;
-}
-
-function youWin() {
+export function youWin() {
   const gameOver = document.createElement("div");
   gameOver.classList.add("you-lose-or-win-window");
   const gameOverParagraph = document.createElement("p");
@@ -138,17 +148,72 @@ function youWin() {
   gameOverParagraph.appendChild(node);
   gameOver.appendChild(gameOverParagraph);
   gameBoard.append(gameOver);
-  const timeSpent = document.createElement("p");
-  const timeSpentText = document.createTextNode(timeDisplay.innerHTML);
-  timeSpent.appendChild(timeSpentText);
-  timeSpent.classList.add("time-spent-text");
-  gameOver.appendChild(timeSpent);
-  var buttonLose = document.createElement("a");
-  buttonLose.innerHTML = "New Game";
-  buttonLose.classList.add("restart-button");
-  gameOver.appendChild(buttonLose);
-  buttonLose.addEventListener("click", function () {
+  setTimeout(function () {
+    createScoreboard();
+  }, 1000);
+}
+
+function createScoreboard() {
+  const playerScoreModal = document.createElement("dialog");
+  container.append(playerScoreModal);
+  playerScoreModal.classList.add("player-modal");
+  playerScoreModal.show();
+  const playerScoreDiv = document.createElement("div");
+  playerScoreDiv.classList.add("player-score-container");
+  playerScoreModal.append(playerScoreDiv);
+
+  const scoreBoardText = document.createElement("h3");
+  scoreBoardText.innerHTML = "Scoreboard";
+  playerScoreDiv.append(scoreBoardText);
+
+  var table = document.createElement("table");
+
+  var tr = document.createElement("tr");
+
+  var th1 = document.createElement("th");
+  var th2 = document.createElement("th");
+
+  var text1 = document.createTextNode("Player");
+  var text2 = document.createTextNode("Score");
+
+  th1.appendChild(text1);
+  th2.appendChild(text2);
+
+  tr.appendChild(th1);
+  tr.appendChild(th2);
+
+  table.appendChild(tr);
+
+  fetch("/api/v1/record", { method: "GET" })
+    .then(function (response) {
+      if (response.ok) return response.json();
+      throw new Error("Request failed.");
+    })
+    .then(function (data) {
+      for (let i = 0; i < data.length; i++) {
+        var row = table.insertRow(i + 1);
+        row.insertCell(0).innerHTML = data[i].username;
+        row.insertCell(1).innerHTML = data[i].time;
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  const tableContainer = document.createElement("div");
+  tableContainer.classList.add("table-container");
+  playerScoreDiv.appendChild(tableContainer);
+  tableContainer.appendChild(table);
+
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("button-container");
+  playerScoreDiv.appendChild(buttonContainer);
+
+  var buttonNewGame = document.createElement("a");
+  buttonNewGame.innerHTML = "New Game";
+  buttonNewGame.classList.add("restart-button", "margin2");
+  playerScoreDiv.appendChild(buttonNewGame);
+  buttonNewGame.addEventListener("click", function () {
     window.location.reload();
-    scoreDisplay.innerHTML = "0";
   });
 }

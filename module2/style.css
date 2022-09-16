@@ -112,6 +112,11 @@ h2 {
   cursor: pointer;
 }
 
+.margin2 {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
 .extras {
   flex: 1;
   display: flex;
@@ -199,13 +204,14 @@ p {
   height: 100%;
   background: rgba(238, 228, 218, 0.73);
   z-index: 3;
+  justify-content: center;
 }
 
 .you-win-text {
   font-size: 6rem;
   font-weight: bold;
   text-align: center;
-  margin-top: 8rem;
+  margin-top: 0;
   margin-bottom: 4rem;
 }
 
@@ -225,19 +231,33 @@ p {
   cursor: pointer;
 }
 
-.time-spent-text {
-  margin-top: 0;
-  font-size: 5rem;
-  font-weight: bold;
-}
-
 .player-modal {
   position: absolute;
-  margin: 0 auto;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
+  border-style: none;
   width: 100%;
   height: 100%;
   z-index: 100;
+  padding: 0;
+}
+
+.player-modal-newgame {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-style: none;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  padding: 0;
 }
 
 .player-input {
@@ -261,7 +281,9 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 0;
   height: 100%;
+  width: 100%;
 }
 
 .submit-button {
@@ -269,13 +291,47 @@ p {
   width: 7%;
   border: none;
   background-color: var(--color-brown-button);
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   border-radius: 0.3rem;
   color: var(--color-light-beige-text);
   text-align: center;
   font-weight: bold;
   font-size: 1.8rem;
   cursor: pointer;
+}
+
+.player-score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-light-beige);
+  border-radius: 6px;
+  font-size: 3rem;
+  max-height: 50%;
+}
+
+h3 {
+  font-size: 4rem;
+  color: var(--color-brown-text);
+  margin-top: 2rem;
+  margin-bottom: 0;
+}
+
+.table-container {
+  overflow-y: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+table {
+  margin: 0 4rem 0 4rem;
+}
+
+th,
+td {
+  padding-right: 2rem;
+  padding-left: 2rem;
+  color: var(--color-brown-text);
 }
 
 @media (max-width: 980px) {
@@ -323,6 +379,14 @@ p {
     margin-left: 0;
     margin-top: 4rem;
     margin-bottom: 10rem;
+  }
+
+  .player-input {
+    width: 40%;
+  }
+
+  .submit-button {
+    width: 15%;
   }
 }
 @media (max-width: 550px) {
@@ -406,7 +470,7 @@ p {
     font-size: 4rem;
     font-weight: bold;
     text-align: center;
-    margin-top: 4rem;
+    margin-top: 0;
     margin-bottom: 2rem;
   }
 
@@ -415,5 +479,13 @@ p {
     font-size: 4rem;
     font-weight: bold;
     margin-bottom: 2rem;
+  }
+
+  .player-input {
+    width: 50%;
+  }
+
+  .submit-button {
+    width: 18%;
   }
 }

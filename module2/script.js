@@ -2,8 +2,6 @@ import Grid from "./Grid.js";
 import Tile from "./Tile.js";
 import { gameStart } from "./Grid.js";
 
-var timeScore = 0;
-var seconds = 0;
 let pDownX = null;
 let pDownY = null;
 
@@ -15,30 +13,69 @@ const timeDisplay = document.getElementById("displayed_time_score");
 const newGameButton = document.querySelector(".restart-button");
 const container = document.querySelector(".container");
 
+window.onload = () => {
+  fetch("/api/v1/record", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message: "Reloaded",
+    }),
+  })
+    .then(function (response) {
+      if (response.ok) {
+        console.log("Click was recorded");
+        return;
+      }
+      throw new Error("Request failed.");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
+createModalDialog();
+
 function createModalDialog() {
   const playerNameModal = document.createElement("dialog");
   container.append(playerNameModal);
-  playerNameModal.classList.add("player-modal");
-  const playerInputDiv = document.createElement("div");
-  playerInputDiv.classList.add("player-input-container");
-  playerNameModal.appendChild(playerInputDiv);
+  playerNameModal.classList.add("player-modal-newgame");
+  const playerInputForm = document.createElement("form");
+  playerInputForm.classList.add("player-input-container");
+  playerInputForm.action = "/api/v1/record";
+  playerInputForm.method = "POST";
+  playerNameModal.appendChild(playerInputForm);
+  playerNameModal.show();
   const playerInput = document.createElement("input");
   playerInput.classList.add("player-input");
   playerInput.setAttribute("type", "text");
-  playerInput.required;
-  playerInput.action = "/api/v1/record/";
-  playerInput.method = "POST";
-  playerInputDiv.appendChild(playerInput);
-  playerNameModal.show();
+  playerInput.required = true;
+  playerInput.name = "name";
+  playerInputForm.appendChild(playerInput);
   const submitButton = document.createElement("button");
-  playerInputDiv.appendChild(submitButton);
+  playerInputForm.appendChild(submitButton);
   submitButton.classList.add("submit-button");
   submitButton.innerHTML = "Play!";
-  submitButton.addEventListener("click", function () {
-    fetch("api/v1/record", { method: "POST" })
+  submitButton.type = "submit";
+  playerInputForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var username = playerInput.value;
+    fetch("/api/v1/record", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: "Start!",
+        username: username,
+      }),
+    })
       .then(function (response) {
         if (response.ok) {
-          console.log("Score was recorded");
+          console.log("Click was recorded");
           return;
         }
         throw new Error("Request failed.");
@@ -46,26 +83,17 @@ function createModalDialog() {
       .catch(function (error) {
         console.log(error);
       });
+
     playerNameModal.close();
-    timeScore = setInterval(incrementSeconds, 1000);
+    playerNameModal.remove();
     setupInput();
     setupPointerInput();
   });
 }
 
-createModalDialog();
-
 const grid = new Grid(gameBoard);
 grid.randomEmptyCell().tile = new Tile(gameBoard);
 grid.randomEmptyCell().tile = new Tile(gameBoard);
-
-window.onload = () => {
-  if (localStorage.getItem("bestScore") == null) {
-    bestScoreDisplay.innerHTML = 0;
-  } else {
-    bestScoreDisplay.innerHTML = localStorage.getItem("bestScore");
-  }
-};
 
 function setupInput() {
   window.addEventListener("keydown", handleInput, { once: true });
@@ -77,7 +105,6 @@ function setupPointerInput() {
 }
 
 newGameButton.addEventListener("click", function () {
-  localStorage.setItem("bestScore", scoreDisplay.innerHTML);
   window.location.reload();
 });
 
@@ -126,7 +153,6 @@ async function handleInput(e) {
     gameBoard.removeEventListener("pointerdown", handlePointerDown);
     gameBoard.removeEventListener("pointermove", handlePointerMove);
     window.removeEventListener("keydown", handleInput);
-    clearInterval(timeScore);
   }
 
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
@@ -272,7 +298,6 @@ function handlePointerMove(evt) {
     gameBoard.removeEventListener("pointerdown", handlePointerDown);
     gameBoard.removeEventListener("pointermove", handlePointerMove);
     window.removeEventListener("keydown", handleInput);
-    clearInterval(timeScore);
   }
 
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
@@ -282,7 +307,27 @@ function handlePointerMove(evt) {
 }
 
 function youLose() {
-  const gameOver = document.createElement("div");
+  fetch("/api/v1/record", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message: "Lose!",
+    }),
+  })
+    .then(function (response) {
+      if (response.ok) {
+        console.log("Click was recorded");
+        return;
+      }
+      throw new Error("Request failed.");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  const gameOver = document.createElement("Form");
   gameOver.classList.add("you-lose-or-win-window");
   const gameOverParagraph = document.createElement("p");
   gameOverParagraph.classList.add("you-lose-text");
@@ -294,14 +339,7 @@ function youLose() {
   buttonLose.innerHTML = "Try again";
   buttonLose.classList.add("restart-button");
   gameOver.appendChild(buttonLose);
-  clearInterval(timeScore);
   buttonLose.addEventListener("click", function () {
-    localStorage.setItem("bestScore", scoreDisplay.innerHTML);
     window.location.reload();
   });
-}
-
-function incrementSeconds() {
-  seconds += 1;
-  timeDisplay.innerHTML = seconds;
 }

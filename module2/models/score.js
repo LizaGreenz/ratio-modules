@@ -1,9 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+const { Schema } = mongoose;
 
-const scoresSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+const scoresSchema = new Schema({
+  _id: Schema.Types.ObjectId,
   username: { type: String, required: true },
   time: { type: Number, default: 0, required: false },
 });
 
-module.exports = mongoose.model("Score", scoresSchema);
+export default mongoose.model("Score", scoresSchema);
